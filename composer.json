@@ -1,0 +1,14 @@
+{
+    "name": "jakjr/dropzone",
+    "description": "Integration between dropzone and laravel5.",
+    "keywords": ["dropzone", "laravel"],
+    "author": "João Alfredo Knopik Junior",
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jakjr\\Dropzone\\": "src/"
+        }
+    }
+}
