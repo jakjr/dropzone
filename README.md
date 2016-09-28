@@ -16,6 +16,8 @@ config/app.php
         'Dropzone'  => Jakjr\Dropzone\DropzoneFacade::class,
     ]
 
+php artisan vendor:publish --provider="Jakjr\Dropzone\DropzoneServiceProvider"
+
 ##Use
 
 ### Views (load component):
