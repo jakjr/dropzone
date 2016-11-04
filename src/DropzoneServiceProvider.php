@@ -29,7 +29,7 @@ class DropzoneServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('dropzone', function($app){
+        $this->app->singleton('dropzone', function($app){
             return new Dropzone();
         });
     }
