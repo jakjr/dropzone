@@ -35,6 +35,8 @@ class Dropzone
             'maxFiles'=>5,
             'maxFilesize'=>10,
             'jsonUploadedFiles'=> Dropzone::getUploadedFiles(),
+            'paramName'=>'file',
+            'createImageThumbnails'=>false
         ];
 
         $config = array_merge($default, $this->config);
@@ -91,4 +93,10 @@ class Dropzone
         return true;
     }
 
+    protected function getPayloadFilename($payload)
+    {
+        $raw = \Crypt::decrypt($payload);
+
+        return 'a' . $raw;
+    }
 }
