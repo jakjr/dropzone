@@ -43,10 +43,10 @@ php artisan vendor:publish --provider="Jakjr\Dropzone\DropzoneServiceProvider"
     
 ### Controllers:
 
-    public function store(Request $requesr)
+    public function store(Request $request)
     {
         ...
-        //will persist the uploaded files on path location
-        Dropzone::store($path); 
+        //Use the methods from Laravel
+        $request->file('file.0')->move ....
         ...
     }

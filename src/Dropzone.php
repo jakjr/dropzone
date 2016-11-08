@@ -35,7 +35,6 @@ class Dropzone
             'maxFiles'=>5,
             'maxFilesize'=>10,
             'jsonUploadedFiles'=> Dropzone::getUploadedFiles(),
-            'paramName'=>'file',
             'createImageThumbnails'=>false
         ];
 
@@ -72,7 +71,9 @@ class Dropzone
     {
         File::makeDirectory($this->baseDir, 0755, false, true);
 
-        $request->file('file')->move($this->baseDir, $request->file('file')->getClientOriginalName());
+        $inputElementName = $request->files->keys()[0];
+
+        $request->file($inputElementName)->move($this->baseDir, $request->file($inputElementName)->getClientOriginalName());
     }
 
     public function delete(Request $request)
