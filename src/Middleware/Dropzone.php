@@ -17,7 +17,6 @@ class Dropzone
      */
     public function handle($request, Closure $next)
     {
-
         if ($request->has('dropzone')) {
 
             $dropzoneFiles = $request->get('dropzone');
