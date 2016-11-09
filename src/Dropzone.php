@@ -13,14 +13,12 @@ class Dropzone
 {
     var $baseDir;
     var $config = [];
+    var $request;
 
-    /**
-     * @todo permitir mais de um uploadfiles por página
-     * @param null $prefixDir
-     */
-    public function __construct($prefixDir = null)
+    public function __construct()
     {
         $this->baseDir = sys_get_temp_dir() . '/' . Session::getId() . '/';
+        $this->request = app('request');
     }
 
     public function config($config)
@@ -31,11 +29,7 @@ class Dropzone
     public function getConfig()
     {
         $default = [
-            'url'=>'/dropzone',
-            'maxFiles'=>5,
-            'maxFilesize'=>10,
-            'jsonUploadedFiles'=> Dropzone::getUploadedFiles(),
-            'createImageThumbnails'=>false
+            'jsonUploadedFiles'=> Dropzone::getUploadedFiles()
         ];
 
         $config = array_merge($default, $this->config);
@@ -67,18 +61,25 @@ class Dropzone
         return File::name($path);
     }
 
-    public function upload(Request $request)
+    public function upload()
     {
+        if (! $this->request->files->count()) {
+            throw new Exception('none file found on request to upload');
+        }
+
         File::makeDirectory($this->baseDir, 0755, false, true);
 
-        $inputElementName = $request->files->keys()[0];
+        $inputElementName = $this->request->files->keys()[0];
 
-        $request->file($inputElementName)->move($this->baseDir, $request->file($inputElementName)->getClientOriginalName());
+        $this->request->file($inputElementName)->move(
+            $this->baseDir,
+            $this->request->file($inputElementName)->getClientOriginalName()
+        );
     }
 
-    public function delete(Request $request)
+    public function delete()
     {
-        return (int)File::delete($this->baseDir . $request->get('name'));
+        return (int)File::delete($this->baseDir . $this->request->get('name'));
     }
 
     public function store($destination)
@@ -94,10 +95,4 @@ class Dropzone
         return true;
     }
 
-    protected function getPayloadFilename($payload)
-    {
-        $raw = \Crypt::decrypt($payload);
-
-        return 'a' . $raw;
-    }
 }

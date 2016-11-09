@@ -16,10 +16,6 @@ class DropzoneServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/assets' => public_path('vendor/dropzone'),
         ], 'public');
-
-        \Route::post('dropzone', 'Jakjr\Dropzone\DropzoneController@uploadAttach');
-        \Route::delete('dropzone', 'Jakjr\Dropzone\DropzoneController@deleteAttach');
-
     }
 
     /**
