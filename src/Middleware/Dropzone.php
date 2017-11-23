@@ -40,8 +40,8 @@ class Dropzone
             $path = $dropzone->baseDir . $fileName;
             
             \Log::info("Upload do arquivo $path");
-
-            $uploadedFiles[] = new UploadedFile(
+                
+            $uploaded = new UploadedFile(
                 $path,
                 $fileName,
                 filetype($path),
@@ -50,6 +50,8 @@ class Dropzone
                 true
             );
             
+            $uploadedFiles[] = $uploaded;
+                
             if ($uploaded->isReadable()) {
                 \Log::info("$path readble!");
             } else {
