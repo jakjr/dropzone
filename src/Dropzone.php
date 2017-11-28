@@ -71,6 +71,11 @@ class Dropzone
 
         $inputElementName = $this->request->files->keys()[0];
 
+        //Arquivo com o mesmo nome já existe no diretório de transição
+        if (file_exists($this->baseDir . DIRECTORY_SEPARATOR . $this->request->file($inputElementName)->getClientOriginalName())) {
+            throw new Exception('Um arquivo com o mesmo nome já foi anexado à este atendimento.');
+        }
+        
         $this->request->file($inputElementName)->move(
             $this->baseDir,
             $this->request->file($inputElementName)->getClientOriginalName()
