@@ -38,8 +38,6 @@ class Dropzone
         foreach ($fileNames as $fileName) {
 
             $path = $dropzone->baseDir . $fileName;
-            
-            \Log::info("Upload do arquivo $path");
                 
             $uploaded = new UploadedFile(
                 $path,
@@ -51,13 +49,6 @@ class Dropzone
             );
             
             $uploadedFiles[] = $uploaded;
-                
-            if ($uploaded->isReadable()) {
-                \Log::info("$path readble!");
-            } else {
-                \Log::info("$path NÃO readble!");
-            }
-
         }
 
         $request->files->set($inputElementName, $uploadedFiles);
