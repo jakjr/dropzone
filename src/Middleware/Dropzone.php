@@ -43,7 +43,6 @@ class Dropzone
                 $path,
                 $fileName,
                 filetype($path),
-                filesize($path),
                 0,
                 true
             );
